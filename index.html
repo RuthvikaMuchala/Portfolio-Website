@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruthvika's Portfolio</title>
+  <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/media.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* General styles for the project box and caption */
+    .project-box {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .project-img {
+      width: 100%;
+      height: auto;
+    }
+
+    .project-mask {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+      /* Dark overlay */
+      color: white;
+      padding: 20px;
+      display: none;
+      /* Hide by default */
+    }
+
+    .project-caption {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-caption h5,
+    .project-caption p {
+      margin: 0;
+    }
+
+    /* Hover effect for larger screens (desktop) */
+    .project-box:hover .project-mask {
+      display: block;
+    }
+
+    /* Mobile and tablet specific styles */
+    @media (max-width: 768px) {
+      .projects-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Two columns layout */
+        gap: 10px;
+      }
+
+      .project-box {
+        position: relative;
+        width: 100%;
+      }
+
+      /* Ensure the title appears above the image */
+      .project-mask {
+        display: block;
+        /* Make the text visible by default on small screens */
+        position: absolute;
+        top: 0;
+        /* Position the mask at the top */
+        left: 0;
+        right: 0;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        /* Dark background for readability */
+        text-align: center;
+        z-index: 2;
+        /* Ensure it appears above the image */
+      }
+
+      /* Adjust project caption placement */
+      .project-caption {
+        position: absolute;
+        top: 10px;
+        /* Place the caption above the image */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+
+    .skill-icon {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .skill-card {
+        width: 60px;
+        /* Slightly smaller size for smaller screens */
+        height: 60px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .skill-card {
+        width: 50px;
+        /* Even smaller size for very small screens */
+        height: 50px;
+      }
+    }
+
+    /* Styles for the skill icons */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      /* Animation for page load */
+    }
+
+    .skill-card {
+      width: 120px;
+      /* Default size of the icons */
+      height: 120px;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+      /* Smooth transition for zoom */
+    }
+
+    .skill-icon {
+      max-width: 100%;
+      max-height: 100%;
+      transition: transform 0.3s ease-in-out;
+      /* Ensures smooth zoom effect */
+    }
+
+    /* Zoom effect on hover */
+    .skill-card:hover .skill-icon {
+      transform: scale(1.2);
+      /* Zooms the icon */
+    }
+
+    /* Animation for fading in when the page loads */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .skill-card {
+        width: 80px;
+        /* Slightly smaller size for smaller screens */
+        height: 80px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .projects-row {
+        flex-direction: column;
+        gap: 20px !important;
+        /* Ensures proper spacing */
+      }
+
+      .project-box {
+        flex: 0 0 90% !important;
+        /* Override inline flex property */
+        max-width: 90% !important;
+        /* Override inline max-width */
+        margin: 0 auto !important;
+        /* Center the box */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="preloader">
+    <div class="jumping-dots">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <header id="header" class="header">
+    <div class="container container-lg">
+      <div class="header-nav">
+        <a href="#home" class="logo">Ruthvika's<span> </span>Portfolio</a>
+        <nav id="nav" class="nav">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="#home" class="nav-link active">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="#about" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="#projects" class="nav-link">Projects and Works</a>
+            </li>
+            <li class="nav-item">
+              <a href="#contact" class="nav-link">Contact</a>
+            </li>
+          </ul>
+          <button id="nav-btn" class="nav-btn">
+            <img id="nav-btn-img" src="img/icons/open.svg" alt="Navigation button" />
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="container container-lg">
+      <div class="hero-row" data-aos="fade-zoom-in" data-aos-easing="ease-in-out" data-aos-delay="1800"
+        data-aos-duration="2000">
+        <div class="hero-content">
+          <span class="hero-greeting"> Hello, I am</span>
+          <h1 class="hero-heading">Ruthvika Muchala</h1>
+          <span class="hero-heading-subtitle">Artificial Intelligence & Machine Learning Engineer, Data Scientist & Data
+            Analyst</span>
+          <div class="about-social-list">
+            <div class="social-links-row">
+              <a href="https://github.com/RuthvikaMuchala">
+                <img src="img/social_icons/github.svg" alt="Link to GitHub account" />
+              </a>
+
+              <a href="https://in.linkedin.com/in/ruthvika-muchala">
+                <img src="img/social_icons/linkedin.svg" alt="Link to linkedin profile" />
+              </a>
+              <a href="https://www.instagram.com/ruthvika.muchala/">
+                <img src="img/social_icons/instagram.svg" alt="Link to instagram profile" /></a>
+            </div>
+          </div>
+
+          <div>
+            <a href="#projects" class="btn">My Portfolio</a>
+            <a href="#contact" class="btn btn-white">Contact Me</a>
+          </div>
+        </div>
+        <div class="hero-img" style="position: relative; display: inline-block; overflow: hidden;">
+          <img src="img/hero/ruth_portfolio.png" alt="Picture of Christian Buehner taken from Unsplash" style="width: 80%; height: auto; margin: 0 auto; display: block; 
+                      mask-image: radial-gradient(circle, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+                      -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+                      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); background: transparent;">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-title">
+        <h2 class="title">About Me</h2>
+      </div>
+      <div class="about-row">
+        <div class="about-content">
+          <p class="about-descr" style="text-align:justify;">
+            Passionate and dedicated undergraduate student with a strong focus on Artificial Intelligence and Machine
+            Learning. I possess a broad skill set across various high-demand fields, equipping me to address the
+            evolving needs of today’s technology-driven landscape. With a deep commitment to innovation, I am driven by
+            a relentless pursuit of excellence in the areas of Machine Learning Engineering and Data Science. I am
+            actively seeking a challenging role where I can apply my skills, learn new techniques, and contribute to the
+            development of cutting-edge AI solutions that push the boundaries of what is possible in the field. <br />
+            <br />
+            Driven by innovation, committed to developing cutting-edge AI solutions for a technology-driven world.
+          </p>
+          <div class="about-download-btn">
+            <a target="_blank" href="https://drive.google.com/file/d/1G8WET0HfWTdhxCslnAuBMcgzDEtItWjv/view?usp=sharing"
+              class="btn btn-white">Download Resume</a>
+          </div>
+        </div>
+        <div class="about-skills">
+          <div class="skill">
+            <div class="skill-title">Python</div>
+            <div class="skill-percent">90%</div>
+            <div class="skillbar" style="width: 90%"></div>
+          </div>
+          <div class="skill">
+            <div class="skill-title">Machine Learning and Deep Learning</div>
+            <div class="skill-percent">90%</div>
+            <div class="skillbar" style="width: 90%"></div>
+          </div>
+          <div class="skill">
+            <div class="skill-title">Computer Vision (OpenCV)</div>
+            <div class="skill-percent">75%</div>
+            <div class="skillbar" style="width: 75%"></div>
+          </div>
+          <div class="skill">
+            <div class="skill-title">Natural Language Processing (NLP)</div>
+            <div class="skill-percent">80%</div>
+            <div class="skillbar" style="width: 80%"></div>
+          </div>
+          <div class="skill">
+            <div class="skill-title">Data Analytics and Visualization</div>
+            <div class="skill-percent">60%</div>
+            <div class="skillbar" style="width: 60%"></div>
+          </div>
+          <div class="skill">
+            <div class="skill-title">HTML/CSS</div>
+            <div class="skill-percent">75%</div>
+            <div class="skillbar" style="width: 75%"></div>
+          </div>
+          <div class="skill">
+            <div class="skill-title">Git and GitHub</div>
+            <div class="skill-percent">75%</div>
+            <div class="skillbar" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="services-row">
+        <div class="service-card" data-aos="fade-down">
+          <img class="service-card-img" src="img/services/03.svg" alt="" />
+          <h3 class="service-card-title">Natural Language Processing</h3>
+          <p>
+            During my studies, I actively engaged with Natural Language Processing (NLP) by working on projects that
+            involved text classification, sentiment analysis, and language modeling. I utilized libraries like NLTK and
+            spaCy to process and analyze large datasets, enhancing my understanding of language structures.
+          </p>
+        </div>
+
+        <div class="service-card" data-aos="fade-down">
+          <img class="service-card-img" src="img/services/02.svg" alt="" />
+          <h3 class="service-card-title">Machine Learning and Deep Learning</h3>
+          <p>
+            In Machine Learning and Deep Learning, I built models using frameworks like TensorFlow and Scikit-learn. I
+            applied algorithms for classification, regression, and clustering tasks, focusing on improving model
+            accuracy through hyperparameter tuning.
+          </p>
+        </div>
+
+        <div class="service-card" data-aos="fade-down">
+          <img class="service-card-img" src="img/services/01.svg" alt="" />
+          <h3 class="service-card-title">Data Analytics and Visualization</h3>
+          <p>
+            For Data Analytics and Visualization, I used tools like Python (Pandas, Matplotlib) to analyze datasets,
+            uncover trends, and present actionable insights. Additionally, I leveraged Tableau to create interactive and
+            visually appealing dashboards (Tableau), enabling deeper insights into
+            complex data.
+          </p>
+        </div>
+      </div>
+      <div class="services-row" style="margin-top: 6rem;">
+        <div class="service-card" data-aos="fade-down">
+          <h3 class="service-card-title">My Skillset</h3>
+          <div class="skills-row">
+            <div class="skill-card">
+              <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+                alt="Python" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML  CSS" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="HTML  CSS" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JS" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg"
+                alt="TensorFlow" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/3/32/OpenCV_Logo_with_text_svg_version.svg"
+                alt="OpenCV" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/88/SpaCy_logo.svg"
+                alt="spaCy" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ80zg_RKN4w3BXlMnOwj4evR9JzAjfV73KHQ&s"
+                alt="Hugging Face" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg"
+                alt="PyTorch" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" alt="Angular" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Database-mysql.svg"
+                alt="SQL" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon" src="https://logos-world.net/wp-content/uploads/2021/10/Tableau-Symbol.png"
+                alt="Tableau" />
+            </div>
+            <div class="skill-card">
+              <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg"
+                alt="Git" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="container container-lg">
+      <div class="projects-title">
+        <h2 class="title">Projects & Works</h2>
+      </div>
+
+      <div class="projects-row" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+        <div class="project-box"
+          style="flex: 1 1 calc(40% - 15px); max-width: calc(40% - 15px); box-sizing: border-box;">
+          <a href="https://github.com/ayushmaanFCB/GlossaCompiler---Text-to-Code-for-Young-Learners"
+            style="display: block;">
+            <img class="project-img" src="img/works/03.png" alt=""
+              style="width: 100%; height: auto; border-radius: 2.5rem; display: block;" />
+            <div class="project-mask" style="text-align: center; margin-top: 10px;">
+              <div class="project-caption">
+                <h5 class="white">GlossaCompiler: Text to Code</h5>
+                <p class="white">Transformers, Deep Learning and Web Development</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="project-box"
+          style="flex: 1 1 calc(40% - 15px); max-width: calc(40% - 15px); box-sizing: border-box;">
+          <a href="https://github.com/RuthvikaMuchala/WaveControl---Hands-free-Windows-Navigation"
+            style="display: block;">
+            <img class="project-img" src="img/works/04.png" alt=""
+              style="width: 100%; height: auto; border-radius: 2.5rem; display: block;" />
+            <div class="project-mask" style="text-align: center; margin-top: 10px;">
+              <div class="project-caption">
+                <h5 class="white">WaveControl - Hands-free Windows Navigation</h5>
+                <p class="white">Computer Vision</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="project-box"
+          style="flex: 1 1 calc(40% - 15px); max-width: calc(40% - 15px); box-sizing: border-box;">
+          <a href="https://github.com/RuthvikaMuchala/Image-Caption-Generator-Application" style="display: block;">
+            <img class="project-img" src="img/works/05.png" alt=""
+              style="width: 100%; height: auto; border-radius: 2.5rem; display: block;" />
+            <div class="project-mask" style="text-align: center; margin-top: 10px;">
+              <div class="project-caption">
+                <h5 class="white">Image Caption Generation using VGG-16 and LSTM</h5>
+                <p class="white">Deep Learning and Transfer Learning</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="project-box"
+          style="flex: 1 1 calc(40% - 15px); max-width: calc(40% - 15px); box-sizing: border-box;">
+          <a href="https://github.com/RuthvikaMuchala/Swiggy-Food-Delivery-Time-Analyzer" style="display: block;">
+            <img class="project-img" src="img/works/01.png" alt=""
+              style="width: 100%; height: auto; border-radius: 2.5rem; display: block;" />
+            <div class="project-mask" style="text-align: center; margin-top: 10px;">
+              <div class="project-caption">
+                <h5 class="white">Swiggy Analysis Dashboard</h5>
+                <p class="white">Data Analytics (Tableau)</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="project-box"
+          style="flex: 1 1 calc(40% - 15px); max-width: calc(40% - 15px); box-sizing: border-box;">
+          <a href="https://github.com/RuthvikaMuchala/FashionMaze-E-Commerce-Website" style="display: block;">
+            <img class="project-img" src="img/works/06.png" alt=""
+              style="width: 100%; height: auto; border-radius: 2.5rem; display: block;" />
+            <div class="project-mask" style="text-align: center; margin-top: 10px;">
+              <div class="project-caption">
+                <h5 class="white">FashionMaze - An eCommerce Website</h5>
+                <p class="white">Web Development (Angular)</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="project-box"
+          style="flex: 1 1 calc(40% - 15px); max-width: calc(40% - 15px); box-sizing: border-box;">
+          <a href="https://github.com/RuthvikaMuchala/Music-Player-Android-App" style="display: block;">
+            <img class="project-img" src="img/works/02.png" alt=""
+              style="width: 100%; height: auto; border-radius: 2.5rem; display: block;" />
+            <div class="project-mask" style="text-align: center; margin-top: 10px;">
+              <div class="project-caption">
+                <h5 class="white">Music Player Application</h5>
+                <p class="white">Android Development (Kotlin)</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="contact-title">
+        <h2 class="title">Contact</h2>
+      </div>
+      <div class="contact-content">
+        <p>
+          Tell me about your project.
+          <br />
+          Let's talk and work together!
+        </p>
+      </div>
+
+      <div class="contact-buttons" data-aos="fade-up">
+        <a href="https://wa.me/9384809382" target="_blank" class="btn btn-whatsapp">
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+        <a href="mailto:ruthvikamuchala@gmail.com" target="_blank" class="btn btn-gmail">
+          <i class="fas fa-envelope"></i> Send Email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="social-links-row footer-social">
+          <a href="https://github.com/RuthvikaMuchala">
+            <img src="img/social_icons/github.svg" alt="Link to GitHub account" />
+          </a>
+
+          <a href="https://in.linkedin.com/in/ruthvika-muchala">
+            <img src="img/social_icons/linkedin.svg" alt="Link to linkedin profile" />
+          </a>
+
+          <a href="https://www.instagram.com/ruthvika.muchala">
+            <img src="img/social_icons/instagram.svg" alt="Link to instagram profile" /></a>
+        </div>
+
+        <div class="footer-copyright">
+          <p>&copy; Ruthvika Muchala 2024 | Designed by Ruthvika Muchala</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="goToTop" class="goToTop">
+    <a href="#home">
+      <img src="img/icons/arrow_up.svg" alt="Back to top" /></a>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+    integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
