@@ -21,6 +21,18 @@ navBtn.onclick = () => {
   }
 };
 
+// Close menu on nav-link click
+const navLinks = document.querySelectorAll(".nav-link"); // Select all nav links
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (nav.classList.contains("open")) {
+      nav.classList.remove("open"); // Close the nav menu
+      navBtnImg.src = "img/icons/open.svg"; // Reset hamburger icon to open
+    }
+  });
+});
+
 //Sticky header & goToTop button
 window.addEventListener("scroll", function () {
   const header = document.querySelector("#header");
