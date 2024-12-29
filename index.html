@@ -524,27 +524,56 @@
 
   <section id="contact" class="contact">
     <div class="container">
-      <div class="contact-title">
-        <h2 class="title">Contact</h2>
-      </div>
-      <div class="contact-content">
-        <p>
-          Tell me about your project.
-          <br />
-          Let's talk and work together!
-        </p>
-      </div>
+      <div class="contact-row">
+        <!-- Left Side: Title, Text, and Buttons -->
+        <div class="contact-left" data-aos="fade-up">
+          <div class="contact-title">
+            <h2 class="title">Contact</h2>
+          </div>
+          <div class="contact-content">
+            <p>
+              Tell me about your project.
+              <br />
+              Let's talk and work together!
+            </p>
+          </div>
+          <div class="contact-buttons">
+            <a href="https://wa.me/9384809382" target="_blank" class="btn btn-whatsapp">
+              <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+            <a href="mailto:ruthvikamuchala@gmail.com" target="_blank" class="btn btn-gmail">
+              <i class="fas fa-envelope"></i> Send Email
+            </a>
+          </div>
+        </div>
 
-      <div class="contact-buttons" data-aos="fade-up">
-        <a href="https://wa.me/9384809382" target="_blank" class="btn btn-whatsapp">
-          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-        </a>
-        <a href="mailto:ruthvikamuchala@gmail.com" target="_blank" class="btn btn-gmail">
-          <i class="fas fa-envelope"></i> Send Email
-        </a>
+        <!-- Right Side: Form -->
+        <div class="contact-right" data-aos="fade-up">
+          <form action="#" method="post" class="contact-form">
+            <div class="input-box">
+              <input type="text" name="name" placeholder="Enter your Full Name" required />
+            </div>
+            <div class="input-box">
+              <input type="email" name="email" placeholder="Enter your personal Email ID" required />
+            </div>
+            <div class="input-box">
+              <input type="tel" name="phone" placeholder="Enter your personal Phone Number  " required />
+            </div>
+            <button type="submit" class="btn btn-red">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   </section>
+
+  <div id="success-modal" class="modal">
+    <div class="modal-content">
+      <h2 style="font-size: 1.5rem;font-weight: bolder;">Thank You, Ruthvika will write to you very shortly...</h2>
+      <br>
+      <button id="close-modal" class="btn btn-red">Back to Portfolio</button>
+    </div>
+  </div>
+
 
   <footer class="footer">
     <div class="container">
@@ -578,6 +607,75 @@
     integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="js/main.js"></script>
+
+  <script>
+    document.querySelector(".contact-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Collect form data
+      const name = e.target.name.value;
+      const email = e.target.email.value;
+      const phone = e.target.phone.value;
+
+      // Airtable API details
+      const airtableURL = "https://api.airtable.com/v0/appjzJMxuYN7l2TC5/Portfolio-Contacts";
+      const airtableToken = "Bearer pateMEzZTrFz8447N.37ea2fc59baa8f776b3c3d7538a8f3805e0654aaf4ed9be47f033b4ef066e33e";
+
+      // Prepare data to send
+      const formData = {
+        records: [
+          {
+            fields: {
+              Name: name,
+              Email: email,
+              Phone: phone,
+            },
+          },
+        ],
+      };
+
+      // Push data to Airtable
+      fetch(airtableURL, {
+        method: "POST",
+        headers: {
+          Authorization: airtableToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to submit data to Airtable");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Data successfully added to Airtable:", data);
+
+          // Show the modal
+          const modal = document.getElementById("success-modal");
+          modal.style.display = "flex";
+
+          // Add event listener to close button
+          document.getElementById("close-modal").addEventListener("click", () => {
+            modal.style.display = "none";
+            window.location.href = "/"; // Redirect to homepage
+          });
+
+          // Automatic redirect after 3 seconds
+          setTimeout(() => {
+            modal.style.display = "none";
+            window.location.href = "/";
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Failed to submit the form. Please try again.");
+        });
+    });
+
+
+  </script>
 </body>
 
 </html>
